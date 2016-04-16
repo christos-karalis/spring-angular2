@@ -1,0 +1,161 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+configurations {
+    querydslapt
+}
+
+buildscript {
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE'
+        classpath 'org.hibernate:hibernate-entitymanager:4.3.6.Final'
+        classpath 'com.bmuschko:gradle-tomcat-plugin:2.1'
+        classpath 'com.github.houbie:lesscss-gradle-plugin:1.0.3-less-1.7.0'
+    }
+    repositories {
+        jcenter()
+    }
+}
+
+apply plugin: 'idea'
+apply plugin: "lesscss"
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'com.bmuschko.tomcat'
+
+war {
+    from ("$buildDir/css") {
+        include 'main.css'
+        into 'css'
+    }
+    from ("$buildDir/app") {
+        include '*.js', '*.js.map'
+        into 'app'
+    }
+    from ("node_modules") {
+        include 'es6-shim/es6-shim.min.js', 'systemjs/dist/system-polyfills.js',
+                'angular2/es6/dev/src/testing/shims_for_IE.js', 'angular2/bundles/angular2-polyfills.js',
+                'systemjs/dist/system.src.js', 'rxjs/bundles/Rx.js', 'angular2/bundles/angular2.dev.js',
+                'angular2/bundles/router.dev.js', 'angular2/bundles/http.dev.js'
+        into 'node_modules'
+    }
+    exclude "less", "unit-tests.html"
+    include "locales/**", "images/**", "*.html",
+            "main/**/*.html", "test/**",
+            "typings/**", "tsconfig.json", "typings.json"
+    baseName = 'forum-spring-angular'
+    version =  '0.5.0'
+}
+
+lessc {
+    sourceDir "src/main/webapp/less"
+    include "main.less"
+    destinationDir = "$buildDir/css"
+}
+
+sourceSets {
+    generated {
+        java {
+            srcDirs = ['src/main/generated']
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+clean {
+    delete sourceSets.generated.java.srcDirs
+    delete 'node_modules/'
+    delete 'bower_components/'
+}
+
+dependencies {
+    def tomcatVersion = '7.0.59'
+    def queryDslVersion = '4.1.0'
+    def hibernateVersion = '4.2.17.Final'
+    def springVersion = '4.0.1.RELEASE'
+
+    compile 'org.hibernate:hibernate-core:'+hibernateVersion
+    compile 'org.hibernate:hibernate-entitymanager:'+hibernateVersion
+    compile 'org.springframework.data:spring-data-jpa:1.10.1.RELEASE'
+    compile 'org.springframework.data:spring-data-rest-webmvc:2.5.1.RELEASE'
+    compile 'com.querydsl:querydsl-core:'+queryDslVersion
+    compile 'com.querydsl:querydsl-sql:'+queryDslVersion
+    compile 'com.querydsl:querydsl-jpa:'+queryDslVersion
+    compile 'commons-io:commons-io:2.4'
+    compile 'org.springframework.security:spring-security-web:'+springVersion
+    compile 'org.springframework.security:spring-security-config:'+springVersion
+    compile 'org.apache.derby:derby:10.11.1.1'
+
+    tomcat 'org.apache.tomcat.embed:tomcat-embed-core:'+tomcatVersion,
+           'org.apache.tomcat.embed:tomcat-embed-logging-juli:'+tomcatVersion,
+           'org.apache.tomcat.embed:tomcat-embed-jasper:'+tomcatVersion
+
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+
+    querydslapt 'com.querydsl:querydsl-apt:'+queryDslVersion
+
+    testCompile 'org.springframework:spring-test:'+springVersion
+    testCompile 'junit:junit:4.11'
+}
+
+ext {
+    nodeCommand = Os.isFamily(Os.FAMILY_WINDOWS) ? 'node.exe' : 'node'
+    npmCommand = Os.isFamily(Os.FAMILY_WINDOWS) ? 'npm.cmd' : 'npm'
+    bowerCommand = Os.isFamily(Os.FAMILY_WINDOWS) ? 'bower.cmd' : 'bower'
+    gruntCommand = Os.isFamily(Os.FAMILY_WINDOWS) ? 'grunt.cmd' : 'grunt'
+}
+
+task generateQueryDSL(type: JavaCompile, group: 'build', description: 'Generates the QueryDSL query types') {
+    source = sourceSets.main.java
+    classpath = configurations.compile + configurations.querydslapt
+    options.compilerArgs = [
+            "-proc:only",
+            "-processor", "com.querydsl.apt.jpa.JPAAnnotationProcessor"
+    ]
+    destinationDir = sourceSets.generated.java.srcDirs.iterator().next()
+}
+
+compileJava {
+    dependsOn generateQueryDSL
+    source generateQueryDSL.destinationDir
+}
+
+compileGeneratedJava {
+    dependsOn generateQueryDSL
+    options.warnings = false
+    classpath += sourceSets.main.runtimeClasspath
+}
+
+//Get the path for the locally installed binaries
+task npmBin << {
+    new ByteArrayOutputStream().withStream { os ->
+        def result = exec {
+            executable = npmCommand
+            args = ['bin']
+            standardOutput = os
+        }
+        ext.binPath = os.toString().trim() + "/"
+    }
+}
+
+// Install packages from package.json
+task npm(type: Exec) {
+    description = "Grab NodeJS dependencies (from package.json)"
+    commandLine = [npmCommand, "install"]
+    inputs.file "package.json"
+    outputs.dir "node_modules"
+
+    tasks.npmBin.execute()
+}
+
+// Install the bower components for front-end library management
+task tsc(type: Exec){
+    commandLine "tsc"
+}
+
+task stage() {
+    //clean, npm, lessc,
+    dependsOn war, tomcatRunWar
+}

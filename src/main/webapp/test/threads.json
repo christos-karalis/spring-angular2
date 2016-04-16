@@ -1,0 +1,95 @@
+{
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/forum-spring-angular/rest/thread{?page,size,sort}",
+      "templated" : true
+    },
+    "search" : {
+      "href" : "http://localhost:8080/forum-spring-angular/rest/thread/search"
+    }
+  },
+  "_embedded" : {
+    "threads" : [ {
+      "id" : 1,
+      "title" : "Spring MVC form Validation: How to remove these lines from getting displayed",
+      "countOfPosts" : 1,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/forum-spring-angular/rest/thread/1"
+        },
+        "posts" : {
+          "href" : "http://localhost:8080/forum-spring-angular/rest/thread/1/posts"
+        },
+        "directory" : {
+          "href" : "http://localhost:8080/forum-spring-angular/rest/thread/1/directory"
+        }
+      }
+    }, {
+      "id" : 2,
+      "title" : "Spring Data JPA aggregation group by period of time",
+      "countOfPosts" : 1,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/forum-spring-angular/rest/thread/2"
+        },
+        "posts" : {
+          "href" : "http://localhost:8080/forum-spring-angular/rest/thread/2/posts"
+        },
+        "directory" : {
+          "href" : "http://localhost:8080/forum-spring-angular/rest/thread/2/directory"
+        }
+      }
+    }, {
+      "id" : 3,
+      "title" : "How to find all revisions for an entity using spring data envers?",
+      "countOfPosts" : 1,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/forum-spring-angular/rest/thread/3"
+        },
+        "posts" : {
+          "href" : "http://localhost:8080/forum-spring-angular/rest/thread/3/posts"
+        },
+        "directory" : {
+          "href" : "http://localhost:8080/forum-spring-angular/rest/thread/3/directory"
+        }
+      }
+    }, {
+      "id" : 4,
+      "title" : "No method readResolve when enabling spring-data-jpa repositories",
+      "countOfPosts" : 1,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/forum-spring-angular/rest/thread/4"
+        },
+        "posts" : {
+          "href" : "http://localhost:8080/forum-spring-angular/rest/thread/4/posts"
+        },
+        "directory" : {
+          "href" : "http://localhost:8080/forum-spring-angular/rest/thread/4/directory"
+        }
+      }
+    }, {
+      "id" : 5,
+      "title" : "HTTP 404 error code in spring MVC web app for hello world app",
+      "countOfPosts" : 3,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/forum-spring-angular/rest/thread/5"
+        },
+        "posts" : {
+          "href" : "http://localhost:8080/forum-spring-angular/rest/thread/5/posts"
+        },
+        "directory" : {
+          "href" : "http://localhost:8080/forum-spring-angular/rest/thread/5/directory"
+        }
+      }
+    } ]
+  },
+  "page" : {
+    "size" : 20,
+    "totalElements" : 5,
+    "totalPages" : 1,
+    "number" : 0
+  }
+}

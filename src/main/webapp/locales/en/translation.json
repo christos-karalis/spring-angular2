@@ -1,0 +1,52 @@
+{
+  "main": {
+    "common" : {
+      "search" : {
+        "all" : "All",
+        "any" : "Any",
+        "add" : "Add",
+        "reset" : "Reset",
+        "search" : "Search"
+      },
+      "save" : "Save",
+      "cancel" : "Cancel",
+      "delete" : "Delete",
+      "edit" : "Edit",
+      "match" : "Match",
+      "filtersBtn" : "Filters"
+    },
+    "directories" : {
+      "title" : "Directories",
+      "search" : {
+        "description" : "Description"
+      },
+      "input" : {
+        "id" : "Id",
+        "title" : "Title",
+        "description" : "Description"
+      }
+    },
+    "posts" : {
+      "title" : "Posts",
+      "search" : {
+        "description" : "Description"
+      },
+      "input" : {
+        "id" : "Id",
+        "title" : "title",
+        "body" : "body"
+      }
+    },
+    "threads" : {
+      "title" : "Threads",
+      "search" : {
+        "description" : "Description"
+      },
+      "input" : {
+        "id" : "Id",
+        "title" : "title",
+        "body" : "body"
+      }
+    }
+  }
+}

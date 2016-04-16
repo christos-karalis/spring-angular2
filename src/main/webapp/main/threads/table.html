@@ -1,0 +1,19 @@
+<div class="searchResults" ng-controller="EntityCtrl">
+    <table ng-show="threads.length>0">
+        <thead>
+        <tr>
+            <th class="short">#</th>
+            <th ng-i18next>Title</th>
+            <th ng-i18next>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="thread in threads">
+            <td class="center">{{ page.size*page.number+$index + 1 }}</td>
+            <td><span link-to data-link-label="{{thread.title}}" data-link-id="{{thread.id}}" data-link-path="threads"></span></td>
+            <td><span link-to data-link-label="{{thread.body}}" data-link-id="{{thread.id}}" data-link-path="threads"></span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+

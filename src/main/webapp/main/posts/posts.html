@@ -1,0 +1,12 @@
+<main-page data-title="main.posts.title">
+    <form ng-submit="search(true)" ng-keypress="searchEnter($event)" class="search-fieldset" ng-show="filterMode">
+        <div class="row form-group">
+            <search-input data-collection="post" data-field="description"
+                          data-label="main.posts.search.description" data-operands="searchObject.operands"></search-input>
+        </div>
+        <search-buttons></search-buttons>
+    </form>
+
+    <search-results data-path="posts"></search-results>
+    <pagination-data></pagination-data>
+</main-page>
