@@ -1,4 +1,4 @@
-Spring Angular 2 Project [![Build Status][travis-image]][travis-url]
+Spring Angular 2 Project [![Build Status](https://travis-ci.org/christos-karalis/spring-angular2.svg?branch=master)](https://travis-ci.org/christos-karalis/spring-angular2)
 ========================
 
 This is an initial test commit.
