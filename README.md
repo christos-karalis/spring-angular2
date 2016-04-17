@@ -1,4 +1,4 @@
-Spring Angular 2 Project
+Spring Angular 2 Project [![Build Status][travis-image]][travis-url]
 ========================
 
 This is an initial test commit.
