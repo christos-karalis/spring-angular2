@@ -8,6 +8,7 @@ It is a project integrating a few of JS and Java technologies
 
 * Spring
 * Spring Data Rest
+* Spring Security
 * QueryDSL
 * Angular 2
 * Bootstrap
