@@ -1,0 +1,22 @@
+<div id="entityAddHeader">
+    <legend ng-i18next>Directory</legend>
+</div>
+<tariff-form>
+    <form name="postsForm" form-validator novalidate class="form-horizontal"
+          form-submit="persist({action:'post', path:'posts', data:editedData}, ['loadDataView'])"
+          ng-init="editedData = {}">
+        <tariff-submit data-cancel="cancel()">
+        </tariff-submit>
+        <fieldset class="well">
+            <tariff-input data-form="postsForm" data-submit-validation="true"
+                          data-model="editedData" data-field="id"
+                          data-label="main.posts.input.id" data-required="true"></tariff-input>
+            <tariff-input data-form="postsForm" data-submit-validation="true"
+                          data-model="editedData" data-field="title"
+                          data-label="main.posts.input.title" data-required="true"></tariff-input>
+            <tariff-input data-form="postsForm" data-submit-validation="true"
+                          data-model="editedData" data-field="body"
+                          data-label="main.posts.input.body" data-required="true"></tariff-input>
+        </fieldset>
+    </form>
+</tariff-form>

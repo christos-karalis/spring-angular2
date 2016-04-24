@@ -1,0 +1,19 @@
+<div class="searchResults" ng-controller="EntityCtrl">
+    <table ng-show="posts.length>0">
+        <thead>
+        <tr>
+            <th class="short">#</th>
+            <th ng-i18next>Title</th>
+            <th ng-i18next>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="post in posts">
+            <td class="center">{{ page.size*page.number+$index + 1 }}</td>
+            <td><span link-to data-link-label="{{post.title}}" data-link-id="{{post.id}}" data-link-path="posts"></span></td>
+            <td>{{post.body}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+

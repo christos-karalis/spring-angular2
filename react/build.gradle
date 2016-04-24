@@ -1,0 +1,29 @@
+version 'unspecified'
+
+apply plugin: 'com.bertramlabs.asset-pipeline'
+
+buildscript {
+    dependencies {
+        classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.5.4'
+        classpath 'com.bertramlabs.plugins:less-asset-pipeline:2.5.4'
+    }
+    repositories {
+        jcenter()
+    }
+}
+
+task copyStatic(dependsOn: [assetCompile]) << {
+
+    copy {
+        from ("src/main/webapp/")
+        into("$buildDir/webapp")
+    }
+    copy {
+        from ("build/assets") {
+            include "main.css"
+        }
+        into("$buildDir/webapp/css")
+    }
+    println 'end:copyStatic'
+
+}

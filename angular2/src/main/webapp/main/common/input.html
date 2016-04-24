@@ -1,0 +1,11 @@
+<div ng-class="{'form-group': true, 'col-sm-6 error-height' : (twoColumns=='true') , 'col-sm-10' : !twoColumns}">
+    <label for="{{formName}}:{{field}}" ng-class="{'control-label': true, 'col-sm-4' : (twoColumns=='true') , 'col-sm-2' : !twoColumns}">
+        <span ng-i18next>{{label}}</span> {{required?'*':''}}</label>
+    </label>
+    <div ng-class="{ 'col-sm-7' : (twoColumns=='true') , 'col-sm-4' : !twoColumns}" class="inputHolder">
+        <constraints-validator data-model="model" data-form-constraints="constraintsList" data-invalid-constraints="invalidConstraints" data-constraints-error-msg="{{constraintsErrorMsg}}">
+        </constraints-validator>
+        <validation-handler data-form="form" data-model="model" data-field="{{field}}" data-required="{{required}}" data-validation-params="validationParams"
+                            data-submit-validation="{{submitValidation}}" ></validation-handler>
+    </div>
+</div>

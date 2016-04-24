@@ -1,0 +1,70 @@
+version 'unspecified'
+
+apply plugin: 'java'
+
+configurations {
+    querydslapt
+}
+
+sourceSets {
+    generated {
+        java {
+            srcDirs = ['src/main/generated']
+        }
+    }
+}
+
+clean {
+    delete sourceSets.generated.java.srcDirs
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    def queryDslVersion = '4.1.0'
+    def hibernateVersion = '4.2.17.Final'
+    def springVersion = '4.0.1.RELEASE'
+
+    compile 'org.hibernate:hibernate-core:'+hibernateVersion
+    compile 'org.hibernate:hibernate-entitymanager:'+hibernateVersion
+    compile 'org.springframework.data:spring-data-jpa:1.10.1.RELEASE'
+    compile 'org.springframework.data:spring-data-rest-webmvc:2.5.1.RELEASE'
+    compile 'com.querydsl:querydsl-core:'+queryDslVersion
+    compile 'com.querydsl:querydsl-sql:'+queryDslVersion
+    compile 'com.querydsl:querydsl-jpa:'+queryDslVersion
+    compile 'commons-io:commons-io:2.4'
+    compile 'org.springframework.security:spring-security-web:'+springVersion
+    compile 'org.springframework.security:spring-security-config:'+springVersion
+    compile 'org.apache.derby:derby:10.11.1.1'
+
+    compile 'javax.servlet:javax.servlet-api:3.1.0'
+
+    querydslapt 'com.querydsl:querydsl-apt:'+queryDslVersion
+
+    testCompile 'org.springframework:spring-test:'+springVersion
+    testCompile 'junit:junit:4.11'
+}
+
+
+task generateQueryDSL(type: JavaCompile, group: 'build', description: 'Generates the QueryDSL query types') {
+    source = sourceSets.main.java
+    classpath = configurations.compile + configurations.querydslapt
+    options.compilerArgs = [
+            "-proc:only",
+            "-processor", "com.querydsl.apt.jpa.JPAAnnotationProcessor"
+    ]
+    destinationDir = sourceSets.generated.java.srcDirs.iterator().next()
+}
+
+compileJava {
+    dependsOn generateQueryDSL
+    source generateQueryDSL.destinationDir
+}
+
+compileGeneratedJava {
+    dependsOn generateQueryDSL
+    options.warnings = false
+    classpath += sourceSets.main.runtimeClasspath
+}
