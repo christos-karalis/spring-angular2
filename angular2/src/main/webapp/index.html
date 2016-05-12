@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="css/main.css" />
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
 
         <!-- 1. Load libraries -->
         <!-- IE required polyfills, in this exact order -->
@@ -21,6 +21,9 @@
         <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
         <script src="node_modules/angular2/bundles/router.dev.js"></script>
         <script src="node_modules/angular2/bundles/http.dev.js"></script>
+        <script src="node_modules/ng2-bootstrap/bundles/ng2-bootstrap.js"></script>
+        <script src="node_modules/moment/moment.js"></script>
+
 
         <!-- 2. Configure SystemJS -->
         <script>
@@ -30,7 +33,10 @@
                 format: 'register',
                 defaultExtension: 'js'
               }
-            }
+            },
+            map: {
+                  moment: 'node_modules/moment/moment.js'
+                }
           });
           System.import('app/main')
                 .then(null, console.error.bind(console));
@@ -39,6 +45,6 @@
 
     <!-- 3. Display the application -->
     <body>
-    <main-page>Loading...</main-page>
+      <main-page>Loading...</main-page>
     </body>
 </html>

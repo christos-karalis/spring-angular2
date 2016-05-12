@@ -1,7 +1,10 @@
 import {Component} from 'angular2/core';
+import {FORM_DIRECTIVES, FormBuilder,
+        ControlGroup, AbstractControl,
+        Validators} from 'angular2/common';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 import {RouteParams} from 'angular2/router';
-import {RestService} from './rest.service';
+import {RestService} from './services';
 import {AppComponent, AppDetailComponent} from './app.component';
 import {LinkToComponent} from './app.directive';
 
@@ -15,13 +18,22 @@ export class ThreadListComponent extends AppComponent {
 }
 
 @Component({
-  templateUrl:`main/threads/threads_view.html`,
-  directives: [LinkToComponent]
+  templateUrl:'main/threads/threads_view.html',
+  directives: [LinkToComponent, FORM_DIRECTIVES]
 })
 class ThreadDetailComponent extends AppDetailComponent {
+  myForm: ControlGroup;
+  sku: AbstractControl;
 
-  constructor(_routeParams: RouteParams, rService : RestService) {
+  constructor(_routeParams: RouteParams,
+              rService : RestService,
+              fb: FormBuilder) {
     super(_routeParams, rService, 'threads');
+    this.myForm = fb.group({
+      'sku':  ['', Validators.compose([Validators.maxLength(10), Validators.required])]
+    });
+
+    this.sku = this.myForm.controls['sku'];
   }
 
   ngOnInit() {
@@ -32,6 +44,10 @@ class ThreadDetailComponent extends AppDetailComponent {
            .then(res => this.data['posts'] = res[1],
                  err => console.log('Error loading : ' + err)
                 );
+  }
+
+  onSubmit(value: string): void {
+    console.log('you submitted value: ', value, ' ', this.myForm.controls, ' ', this.myForm.status);
   }
 }
 

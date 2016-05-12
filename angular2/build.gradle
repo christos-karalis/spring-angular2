@@ -52,7 +52,8 @@ task copyStatic(dependsOn: [npm, assetCompile, tsc]) << {
             include 'es6-shim/es6-shim.min.js', 'systemjs/dist/system-polyfills.js',
                     'angular2/es6/dev/src/testing/shims_for_IE.js', 'angular2/bundles/angular2-polyfills.js',
                     'systemjs/dist/system.src.js', 'rxjs/bundles/Rx.js', 'angular2/bundles/angular2.dev.js',
-                    'angular2/bundles/router.dev.js', 'angular2/bundles/http.dev.js'
+                    'angular2/bundles/router.dev.js', 'angular2/bundles/http.dev.js',
+                    'ng2-bootstrap/bundles/ng2-bootstrap.js', 'moment/moment.js'
         }
         into("$buildDir/webapp/node_modules")
     }

@@ -1,7 +1,7 @@
 <p>{{data?.title}}</p>
 <div >
     <!--*ngIf="data!=null"-->
-    <div class="post"  *ngFor="#thread of data?.threads">
+    <div class="post"  *ngFor="let thread of data?.threads">
       <div class="wrap-ut pull-left">
           <div class="userinfo pull-left">
               <!--<div class="avatar">-->

@@ -1,0 +1,68 @@
+{
+  "id" : 2,
+  "title" : "Spring Data",
+  "description" : "Spring Data's mission is to provide a familiar and consistent, Spring-based programming model for data access while still retaining the special traits of the underlying data store.",
+  "countOfTopics" : 3,
+  "_embedded" : {
+    "threads" : [ {
+      "id" : 2,
+      "title" : "Spring Data JPA aggregation group by period of time",
+      "countOfPosts" : 1,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/2{?projection}",
+          "templated" : true
+        },
+        "posts" : {
+          "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/2/posts"
+        },
+        "directory" : {
+          "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/2/directory"
+        }
+      }
+    }, {
+      "id" : 3,
+      "title" : "How to find all revisions for an entity using spring data envers?",
+      "countOfPosts" : 1,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/3{?projection}",
+          "templated" : true
+        },
+        "posts" : {
+          "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/3/posts"
+        },
+        "directory" : {
+          "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/3/directory"
+        }
+      }
+    }, {
+      "id" : 4,
+      "title" : "No method readResolve when enabling spring-data-jpa repositories",
+      "countOfPosts" : 1,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/4{?projection}",
+          "templated" : true
+        },
+        "posts" : {
+          "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/4/posts"
+        },
+        "directory" : {
+          "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/4/directory"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/directory/2"
+    },
+    "directory" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/directory/2"
+    },
+    "threads" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/directory/2/threads"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id" : 1,
+  "username" : "anonymous",
+  "firstName" : "Anonymous",
+  "lastName" : "",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/user/1"
+    },
+    "user" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/user/1"
+    }
+  }
+}

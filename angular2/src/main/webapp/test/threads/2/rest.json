@@ -1,0 +1,20 @@
+{
+  "id" : 2,
+  "title" : "Spring Data JPA aggregation group by period of time",
+  "countOfPosts" : 1,
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/2"
+    },
+    "thread" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/2{?projection}",
+      "templated" : true
+    },
+    "directory" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/2/directory"
+    },
+    "posts" : {
+      "href" : "http://localhost:3000/forum-spring-angular2/rest/threads/2_posts"
+    }
+  }
+}

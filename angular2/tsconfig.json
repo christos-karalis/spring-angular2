@@ -12,6 +12,7 @@
     "outDir": "build/webapp/app"
   },
   "exclude": [
+    "src/test",
     "node_modules",
     "typings/main",
     "typings/main.d.ts"

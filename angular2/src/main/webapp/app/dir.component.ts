@@ -1,8 +1,8 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES, RouteParams} from 'angular2/router';
-import {RestService} from './rest.service';
 import {AppComponent, AppDetailComponent} from './app.component';
 import {LinkToComponent} from './app.directive';
+import {RestService} from './services';
 
 @Component({
     templateUrl: `main/directories/directories.html`,
@@ -11,40 +11,22 @@ import {LinkToComponent} from './app.directive';
 class DirListComponent extends AppComponent {
     constructor(rService: RestService) {
         super(rService, 'directories');
+        rService.searchEvent.subscribe((item:any) => this.loadSearch(item));
+    }
+
+    loadSearch(results:any) {
+      this['directories'] = results;
+      console.log(results);
     }
 }
 
 @Component({
-    template: `
-                <p>{{data?.title}}</p>
-                <div>
-                    <div class="post"  *ngFor="#thread of data?.threads">
-                      <div class="wrap-ut pull-left">
-                          <div class="userinfo pull-left">
-                          </div>
-                          <div class="posttext pull-left">
-                              <h2>
-                                <link-to [path]="'threads'" [label]="thread?.title" [id]="thread?.id"></link-to>
-                              </h2>
-                              <p>{{thread?.title}}</p>
-                          </div>
-                          <div class="clearfix"></div>
-                          <button (click)="processWithinAngularZone()">TESTTEST</button>
-                      </div>
-                      <div class="clearfix"></div>
-                  </div>
-                </div>
-              `,
+  templateUrl:'main/directories/directories_view.html',
     directives: [LinkToComponent]
 })
 class DirDetailComponent extends AppDetailComponent {
     constructor(_routeParams: RouteParams, rService: RestService) {
         super(_routeParams, rService, 'directories');
-    }
-
-    processWithinAngularZone() {
-      console.log('test');
-      this.data['threads'][0].title = 'shit';
     }
 
     ngOnInit() {
@@ -60,7 +42,7 @@ class DirDetailComponent extends AppDetailComponent {
 }
 
 @Component({
-    template: ` <router-outlet></router-outlet>`,
+    template: '<router-outlet></router-outlet>',
     directives: [ROUTER_DIRECTIVES]
 })
 @RouteConfig([

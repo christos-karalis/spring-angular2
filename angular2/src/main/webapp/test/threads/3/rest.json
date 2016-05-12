@@ -1,0 +1,20 @@
+{
+  "id" : 3,
+  "title" : "How to find all revisions for an entity using spring data envers?",
+  "countOfPosts" : 1,
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/3"
+    },
+    "thread" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/3{?projection}",
+      "templated" : true
+    },
+    "directory" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/3/directory"
+    },
+    "posts" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/3/posts"
+    }
+  }
+}

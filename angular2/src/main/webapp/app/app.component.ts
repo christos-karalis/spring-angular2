@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs/Rx';
 import {Directive, OnInit} from 'angular2/core';
-import {RestService} from './rest.service';
+import {RestService} from './services';
 import {RouteParams} from 'angular2/router';
 
 export class AppComponent implements OnInit {

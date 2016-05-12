@@ -1,0 +1,20 @@
+{
+  "id" : 4,
+  "title" : "No method readResolve when enabling spring-data-jpa repositories",
+  "countOfPosts" : 1,
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/4"
+    },
+    "thread" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/4{?projection}",
+      "templated" : true
+    },
+    "posts" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/4_posts"
+    },
+    "directory" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/4/directory"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "_embedded" : {
+    "posts" : [ {
+      "id" : 1,
+      "body" : "I have a simple form and I am performing validations using Spring MVC annotations. I used @size annotation. And when I try to check the error message it gives me this in the webpage Failed to conver",
+      "since" : 1463074429216,
+      "_embedded" : {
+        "thread" : {
+          "id" : 1,
+          "title" : "Spring MVC form Validation: How to remove these lines from getting displayed",
+          "countOfPosts" : 1,
+          "_links" : {
+            "self" : {
+              "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/1{?projection}",
+              "templated" : true
+            },
+            "posts" : {
+              "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/1/posts"
+            },
+            "directory" : {
+              "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/1/directory"
+            }
+          }
+        }
+      },
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/forum-spring-angular2/rest/post/1"
+        },
+        "post" : {
+          "href" : "http://localhost:8080/forum-spring-angular2/rest/post/1"
+        },
+        "thread" : {
+          "href" : "http://localhost:8080/forum-spring-angular2/rest/post/1/thread"
+        },
+        "user" : {
+          "href" : "http://localhost:8080/forum-spring-angular2/rest/post/1/user"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/1/posts"
+    }
+  }
+}

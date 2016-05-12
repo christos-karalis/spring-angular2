@@ -1,19 +1,19 @@
 {
   "_links" : {
     "directories" : {
-      "href" : "rest/directories.json",
+      "href" : "rest/directories",
       "templated" : true
     },
     "users" : {
-      "href" : "rest/users.json",
+      "href" : "rest/users",
       "templated" : true
     },
     "threads" : {
-      "href" : "rest/threads.json",
+      "href" : "rest/threads",
       "templated" : true
     },
     "posts" : {
-      "href" : "rest/posts.json",
+      "href" : "rest/posts",
       "templated" : true
     }
   }

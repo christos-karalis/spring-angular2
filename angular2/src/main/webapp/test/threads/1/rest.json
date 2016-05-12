@@ -1,0 +1,20 @@
+{
+  "id" : 1,
+  "title" : "Spring MVC form Validation: How to remove these lines from getting displayed",
+  "countOfPosts" : 1,
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/1"
+    },
+    "thread" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/1{?projection}",
+      "templated" : true
+    },
+    "posts" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/1/posts"
+    },
+    "directory" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/1/directory"
+    }
+  }
+}

@@ -1,9 +1,11 @@
-import {Component, Query, QueryList, Input, OnInit, TemplateRef, ViewContainerRef, ElementRef, SimpleChange} from 'angular2/core';
-import {RestService} from './rest.service';
+import {Component, Query, QueryList, Input, OnInit,
+        TemplateRef, ViewContainerRef, ElementRef}
+        from 'angular2/core';
+import {RestService} from './services';
 
 @Component({
   selector: 'link-to',
-  template: '<a href="#/{{path}}/{{id}}" ng-class="linkIcon">{{label}}</a>',
+  template: `<a href="#/{{path}}/{{id}}" ng-class="linkIcon">{{label}}</a>`,
   directives: [LinkToComponent]
 })
 export class LinkToComponent {
@@ -15,12 +17,12 @@ export class LinkToComponent {
 @Component({
   selector: 'infobox',
   template: `
-              <div class="sidebox">
+              <div class="sidebox" >
                   <h3 ng-i18next>{{title}}</h3>
                   <div class="divline"></div>
                   <div class="blocktxt">
                       <ul class="list">
-                        <li *ngFor="#result of results">
+                        <li *ngFor="let result of results">
                           <link-to param='test' [path]="path" [label]="result[label]" [id]="result[id]"></link-to>
                         </li>
                       </ul>
@@ -44,10 +46,7 @@ export class InfoBoxComponent implements OnInit {
   private title : string;
   private results : string;
 
-  constructor(//private _viewContainer: ViewContainerRef,
-              //private elementRef : ElementRef,
-              private rService : RestService) {
-  }
+  constructor(private rService : RestService) {}
 
   ngOnInit() {
     this.rService.getService(this.path, "?"+(this.paramSort?'sort='+this.paramSort+"&":"")

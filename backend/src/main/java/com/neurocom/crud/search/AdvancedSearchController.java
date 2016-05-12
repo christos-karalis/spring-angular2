@@ -9,6 +9,8 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -46,6 +48,7 @@ import java.util.*;
 public class AdvancedSearchController {
 
     private static final String BASE_MAPPING = "/{repository}";
+    private static Logger logger = LoggerFactory.getLogger(AdvancedSearchController.class);
 
     @Autowired
     private Repositories repositories;
@@ -73,6 +76,7 @@ public class AdvancedSearchController {
             final RootResourceInformation resourceInformation, @RequestBody AdvancedSearch advancedSearch, DefaultedPageable pageable,
             PersistentEntityResourceAssembler assembler) throws ReflectiveOperationException {
 
+        logger.debug("Advanced Search called");
         Assert.notNull(advancedSearch.getOperator(), "Please check your operators that have valid values OR/AND");
         Assert.notNull(advancedSearch.getOperands(), "You will need one operand at least to be included");
 

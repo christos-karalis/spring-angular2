@@ -34,7 +34,7 @@ ext {
 }
 
 war {
-    def tech = 'react'
+    def tech = 'angular2'
     dependsOn ':' + tech + ':copyStatic'
     from project(tech).files('build/webapp/')
     baseName = 'forum-spring-'+tech

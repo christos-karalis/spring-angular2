@@ -1,0 +1,52 @@
+{
+  "id" : 1,
+  "title" : "Spring Framework",
+  "description" : "Core support for dependency injection, transaction management, web applications, data access, messaging, testing and more.",
+  "countOfTopics" : 2,
+  "_embedded" : {
+    "threads" : [ {
+      "id" : 1,
+      "title" : "Spring MVC form Validation: How to remove these lines from getting displayed",
+      "countOfPosts" : 1,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/1{?projection}",
+          "templated" : true
+        },
+        "posts" : {
+          "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/1/posts"
+        },
+        "directory" : {
+          "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/1/directory"
+        }
+      }
+    }, {
+      "id" : 5,
+      "title" : "HTTP 404 error code in spring MVC web app for hello world app",
+      "countOfPosts" : 3,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/5{?projection}",
+          "templated" : true
+        },
+        "posts" : {
+          "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/5/posts"
+        },
+        "directory" : {
+          "href" : "http://localhost:8080/forum-spring-angular2/rest/thread/5/directory"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/directory/1"
+    },
+    "directory" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/directory/1"
+    },
+    "threads" : {
+      "href" : "http://localhost:8080/forum-spring-angular2/rest/directory/1/threads"
+    }
+  }
+}
