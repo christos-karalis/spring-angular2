@@ -16,14 +16,12 @@ buildscript {
 task npm(type: Exec) {
     description = "Grab NodeJS dependencies (from package.json)"
     commandLine = [npmCommand, "install"]
-//    inputs.file "package.json"
-//    outputs.dir "node_modules"
 }
 
 // Install packages from package.json
 task tsc(type: Exec) {
     description = "Transpiles the code written in "
-    executable = "tsc.cmd"
+    executable = tscCommand
 }
 
 task deploy(type: Exec, dependsOn: [npm, tsc]) {
