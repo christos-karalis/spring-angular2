@@ -4,4 +4,3 @@ jdk:
 
 before_install:
   - npm install -g typescript
-  - tsc
