@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router';
-import {UserService, RestService} from './services';
+import {UserService, RestService} from './../services';
 import {Component, Type} from '@angular/core';
 
 @Component({

@@ -9,12 +9,11 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 
 import {Component} from '@angular/core';
 import {HttpModule } from '@angular/http';
-import {LoginComponent} from './login.component'
+import {LoginComponent, DirListComponent, DirDetailComponent,
+        ThreadListComponent, ThreadDetailComponent,
+        HeaderSearchComponent, HeaderLoginComponent} from './components'
 import {InfoBoxComponent, LinkToComponent} from './app.directive';
 import {UserService, RestService} from './services';
-import { DirListComponent, DirDetailComponent } from './dir.component';
-import { ThreadListComponent, ThreadDetailComponent } from './thread.component';
-import {HeaderSearchComponent, HeaderLoginComponent} from './header.component';
 
 @Component({
   selector: 'main-page',

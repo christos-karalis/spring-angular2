@@ -1,7 +1,7 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule  } from '@angular/router';
-import { DirListComponent, DirDetailComponent } from './dir.component';
-import { ThreadListComponent, ThreadDetailComponent } from './thread.component';
+import { DirListComponent, DirDetailComponent,
+         ThreadListComponent, ThreadDetailComponent} from './components';
 
 const appRoutes: Routes = [
   {

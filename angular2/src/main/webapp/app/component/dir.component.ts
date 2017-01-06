@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {OnDestroy} from '@angular/core';
 
 import {AppComponent, AppDetailComponent} from './app.component';
-import {RestService, UserService} from './services';
+import {RestService, UserService} from './../services';
 import {Subscription} from 'rxjs/Rx';
 
 
@@ -19,7 +19,6 @@ export class DirListComponent extends AppComponent {
     }
 
     ngOnDestroy() {
-      console.log('Destroying Directory Component');
       this.subscription.unsubscribe();
     }
 

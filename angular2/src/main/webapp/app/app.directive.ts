@@ -6,7 +6,6 @@ import {RestService} from './services';
 @Component({
   selector: 'link-to',
   template: `<a href="#/{{path}}/{{id}}" ng-class="linkIcon">{{label}}</a>`
-  // directives: [LinkToComponent]
 })
 export class LinkToComponent {
   @Input() label: string;
@@ -29,7 +28,6 @@ export class LinkToComponent {
                   </div>
               </div>
             `
-  // directives: [LinkToComponent]
 })
         export class InfoBoxComponent implements OnInit {
   @Input()

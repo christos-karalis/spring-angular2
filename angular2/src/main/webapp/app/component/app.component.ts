@@ -1,10 +1,9 @@
 import {OnInit} from '@angular/core';
 import {Params} from '@angular/router';
 import {Response} from '@angular/http';
-
 import {Observable} from 'rxjs/Rx';
 
-import {RestService, UserService} from './services';
+import {RestService, UserService} from './../services';
 
 export class AppComponent implements OnInit {
  [key: string]: any;

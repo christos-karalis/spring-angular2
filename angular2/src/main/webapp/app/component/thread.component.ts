@@ -4,10 +4,8 @@ import {FormBuilder,
         FormGroup, FormControl,
         Validators} from '@angular/forms';
 import {Response} from '@angular/http';
-// import {RouteConfig, ROUTER_DIRECTIVES, RouteParams} from '@angular/router';
-import {RestService, UserService} from './services';
+import {RestService, UserService} from './../services';
 import {AppComponent, AppDetailComponent} from './app.component';
-import {LinkToComponent} from './app.directive';
 import {Observable} from 'rxjs/Rx';
 
 @Component({
