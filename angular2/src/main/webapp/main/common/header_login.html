@@ -1,0 +1,24 @@
+<header>
+    <nav class="navbar navbar-light" style="background-color: #b5b5b5;">
+        <div class="container" ng-controller="LogoutCtrl">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/directories">Angular Spring Data Rest Example</a>
+            </div>
+            <form class="form-inline float-xs-right">
+                <div *ngIf="!userService.isAuthenticated()">
+                    <template #popContent><login></login></template>
+                    <a id="login" class="btn btn-link"  [ngbPopover]="popContent" placement="bottom" container="body">
+                        <i class="fa fa-sign-in"></i>
+                        Login
+                    </a>
+                </div>
+                <div *ngIf="userService.isAuthenticated()">
+                    <a class="btn btn-link" (click)="logout()">
+                        <i class="fa fa-sign-in"></i>
+                        Logout
+                    </a>
+                </div>
+            </form>
+        </div>
+    </nav>
+</header>

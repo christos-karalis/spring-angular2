@@ -3,43 +3,27 @@
         <title>Angular 2 QuickStart</title>
         <base href="./">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="http://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" />
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/main.css" />
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>-->
         <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
 
         <!-- 1. Load libraries -->
         <!-- IE required polyfills, in this exact order -->
-        <script src="node_modules/es6-shim/es6-shim.min.js"></script>
-        <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
-        <script src="node_modules/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
-
-        <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+        <!--<script src="node_modules/es6-shim/es6-shim.min.js"></script>-->
+        <script src="node_modules/zone.js/dist/zone.js"></script>
+        <script src="node_modules/reflect-metadata/Reflect.js"></script>
         <script src="node_modules/systemjs/dist/system.src.js"></script>
-        <script src="node_modules/rxjs/bundles/Rx.js"></script>
-        <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
-        <script src="node_modules/angular2/bundles/router.dev.js"></script>
-        <script src="node_modules/angular2/bundles/http.dev.js"></script>
-        <script src="node_modules/ng2-bootstrap/bundles/ng2-bootstrap.js"></script>
+
         <script src="node_modules/moment/moment.js"></script>
 
 
         <!-- 2. Configure SystemJS -->
+        <script src="systemjs.config.js"></script>
         <script>
-          System.config({
-            packages: {
-              app: {
-                format: 'register',
-                defaultExtension: 'js'
-              }
-            },
-            map: {
-                  moment: 'node_modules/moment/moment.js'
-                }
-          });
-          System.import('app/main')
-                .then(null, console.error.bind(console));
+            System.import('app').catch(function(err){ console.error(err); });
         </script>
     </head>
 

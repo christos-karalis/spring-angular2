@@ -2,10 +2,12 @@ package com.neurocom.crud.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.neurocom.crud.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.spi.EvaluationContextExtension;
 import org.springframework.data.repository.query.spi.EvaluationContextExtensionSupport;
@@ -22,12 +24,15 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Properties;
 
 @Configuration
@@ -90,10 +95,6 @@ public class RestDataConfig  extends RepositoryRestMvcConfiguration {
                 config.exposeIdsFor(new AnnotatedTypeScanner(Entity.class).
                         findTypes("com.neurocom.crud.domain").toArray(new Class[0]));
                 config.setMaxPageSize(25);
-//                Comparator c = Comparator.comparing(User::getUsername);
-//                config.withEntityLookup().//
-//                        forRepository(UserRepository.class)
-//                        .withIdMapping(User::getUsername);
             }
 
             @Override
@@ -104,13 +105,6 @@ public class RestDataConfig  extends RepositoryRestMvcConfiguration {
 
         };
     }
-
-//    @Override
-//    public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-//
-//        config.withCustomEntityLookup().//
-//                forRepository(UserRepository.class, User::getUsername, UserRepository::findByUsername);
-//    }
 
     @Bean
     EvaluationContextExtension securityExtension() {

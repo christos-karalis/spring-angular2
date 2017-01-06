@@ -1,62 +1,53 @@
-import {Component} from 'angular2/core';
-import {FORM_DIRECTIVES, FormBuilder,
-        ControlGroup, AbstractControl,
-        Validators} from 'angular2/common';
-import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
-import {RouteParams} from 'angular2/router';
-import {RestService} from './services';
+import {Component} from '@angular/core';
+import {ActivatedRoute, Params} from '@angular/router';
+import {FormBuilder,
+        FormGroup, FormControl,
+        Validators} from '@angular/forms';
+import {Response} from '@angular/http';
+// import {RouteConfig, ROUTER_DIRECTIVES, RouteParams} from '@angular/router';
+import {RestService, UserService} from './services';
 import {AppComponent, AppDetailComponent} from './app.component';
 import {LinkToComponent} from './app.directive';
+import {Observable} from 'rxjs/Rx';
 
 @Component({
-  templateUrl:`main/threads/threads.html`,
-  directives: [LinkToComponent]
+  templateUrl:`main/threads/threads.html`
 })
 export class ThreadListComponent extends AppComponent {
-  constructor(rService : RestService) {
-    super(rService, 'threads'); }
+  constructor(rService : RestService, userService : UserService) {
+    super(rService, userService, 'threads'); }
 }
 
 @Component({
-  templateUrl:'main/threads/threads_view.html',
-  directives: [LinkToComponent, FORM_DIRECTIVES]
+  templateUrl:'main/threads/threads_view.html'
 })
-class ThreadDetailComponent extends AppDetailComponent {
-  myForm: ControlGroup;
-  sku: AbstractControl;
+export class ThreadDetailComponent extends AppDetailComponent {
+  postForm: FormGroup;
 
-  constructor(_routeParams: RouteParams,
-              rService : RestService,
-              fb: FormBuilder) {
-    super(_routeParams, rService, 'threads');
-    this.myForm = fb.group({
-      'sku':  ['', Validators.compose([Validators.maxLength(10), Validators.required])]
-    });
+  constructor(protected route : ActivatedRoute,
+              protected rService : RestService,
+              userService : UserService) {
+    super(route.params, rService, userService, 'threads');
+    let group: any = {};
+    group['message'] = new FormControl('', Validators.required);
 
-    this.sku = this.myForm.controls['sku'];
+    this.postForm = new FormGroup(group);
   }
 
   ngOnInit() {
     super.ngOnInit();
-    let promises = this.loadSubViews(['posts']);
-    promises.unshift(this.promise);
-    Promise.all(promises)
-           .then(res => this.data['posts'] = res[1],
-                 err => console.log('Error loading : ' + err)
-                );
+    this.loadSubViews(['posts']);
   }
 
-  onSubmit(value: string): void {
-    console.log('you submitted value: ', value, ' ', this.myForm.controls, ' ', this.myForm.status);
+  onSubmit(value: any): void {
+    var self : ThreadDetailComponent = this;
+    var id : string;
+    Observable.combineLatest<string,string>(
+                    this._routeParams.switchMap((params: Params) => (id = params['id'])),
+                    this.rService.observeServicesLink('threads')
+              ).flatMap<Response>(([id,link], index) => this.rService.post('posts', {thread:link+'/'+id, body:value['message']})
+              ).flatMap(response=>this.rService.observeService('threads', '/'+id+'/posts')
+            ).take(1).subscribe(response=>{self.data['posts']=response.json()._embedded['posts'];self.postForm.reset();}
+                              ,error=>console.log(error));
   }
 }
-
-@Component({
-  template:` <router-outlet></router-outlet> `,
-  directives: [ROUTER_DIRECTIVES]
-})
-@RouteConfig([
-  {path:'/', component: ThreadListComponent, useAsDefault:true},
-  {path:'/:id', component: ThreadDetailComponent}
-])
-export default class ThreadComponent {}

@@ -1,52 +1,57 @@
-import 'rxjs/Rx';
-import {Injectable, EventEmitter} from 'angular2/core';
-import {Http, RequestOptions, Headers, Response} from 'angular2/http';
-import {PromiseWrapper}  from 'angular2/src/facade/promise';
+import {Injectable, EventEmitter} from '@angular/core';
+import {Http, RequestOptions, Headers, Response} from '@angular/http';
+import {Observable, AsyncSubject, Subject, Observer} from 'rxjs/Rx';
 
 @Injectable()
 export class RestService {
-  private links : CachedResponseWrapper<any>;
+  private subject : Subject<Response>;
   public searchEvent: EventEmitter<any> = new EventEmitter<any>();
   private jsonOptions = new RequestOptions({headers : new Headers({ 'Content-Type': 'application/json' })});
 
-  constructor(private $http: Http) {
-   this.links=new CachedResponseWrapper<string>('rest/');
-    // this.links = new CachedResponseWrapper<string>('test/rest.json');
-  }
+  constructor(private $http: Http) {}
 
-  getServicesLink(service : string) {
-    if (this.links.response == null) {
-      this.links.response = this.$http.get(this.links.url).toPromise();
-    }
-    return this.links.response.then(_=> _.json()._links[service].href);
+  observeServicesLink(service : string) : Observable<string> {
+    var http : Http = this.$http;
+    var self : RestService = this;
+    var filter = this.filter;
+
+    var observable : Observable<Response> = Observable.create(​function​(observer:Observer<Response>) {
+​ 	    ​if​ (!self.subject) {
+​ 	      self.subject = ​new​ AsyncSubject<Response>();
+  ​	      http.get('rest/').subscribe(self.subject);
+​ 	    }
+​ ​	    ​return​ self.subject.subscribe(observer);
+​ 	  });
+
+    ​return​ observable.map<string>(_=> filter(_.json()._links[service].href));
   }
 
   filter(link : string) {
     return link.indexOf('{')<=0?link:link.substring(0, link.indexOf('{'));
   }
 
-  getService(service : string, path? : string) : Promise<Response> {
-    return this.getServicesLink(service)
-               .then(link => this.$http.get(this.filter(link) + (path?path:''))
-                            .toPromise());
+  observeService(service : string, path? : string) : Observable<Response> {
+    return this.observeServicesLink(service). flatMap<Response>(
+            (link:string)=> this.$http.get(link + (path?path:''))
+          );
   }
 
-  search(service:string, searchObj: any) {
-    this.getServicesLink(service)
-               .then(link => this.$http.post(this.filter(link)+'/search/advanced', JSON.stringify(searchObj), this.jsonOptions)
-                                  .toPromise().then(_ => this.searchEvent.emit(_.json()._embedded?_.json()._embedded[service]:[]), error => console.log('Error  :' + error))
-                            ,
-                     error => console.log('Error :' + error));
+  search(service:string, searchObj: any) : void {
+    var http : Http = this.$http;
+    this.observeServicesLink(service)
+              .flatMap<Response>(
+                 (link:string) => http.post(link+'/search/advanced', JSON.stringify(searchObj), this.jsonOptions))
+              .subscribe(
+                (_:Response) => this.searchEvent.emit(_.json()._embedded?_.json()._embedded[service]:[]),
+                error => console.log(error)
+              );
   }
 
-
-}
-
-class CachedResponseWrapper<T> {
-  response : Promise<T>;
-  url : string;
-
-  constructor(url? : string) {
-    this.url = url;
+  post(service:string, submittedObj: any) : Observable<Response> {
+    var http : Http = this.$http;
+    return this.observeServicesLink(service)
+              .flatMap<Response>(
+                 (link:string) => http.post(link, JSON.stringify(submittedObj), this.jsonOptions));
   }
+
 }

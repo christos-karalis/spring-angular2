@@ -1,12 +1,10 @@
-import {bootstrap} from 'angular2/platform/browser';
-import {AppRouterComponent} from './app.router';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
+import {AppModule, AppRouterComponent} from './app.router';
 import {UserService, RestService} from './services';
-import {HTTP_PROVIDERS} from 'angular2/http';
-import {ROUTER_PROVIDERS} from 'angular2/router';
-import {provide} from 'angular2/core';
-import {LocationStrategy, HashLocationStrategy} from 'angular2/platform/common';
+import { DirListComponent, DirDetailComponent } from './dir.component';
 
 //enableProdMode();
 
-bootstrap(AppRouterComponent, [HTTP_PROVIDERS, ROUTER_PROVIDERS, RestService, UserService, provide(LocationStrategy,
-         {useClass: HashLocationStrategy})]);
+const platform = platformBrowserDynamic();
+platform.bootstrapModule(AppModule);

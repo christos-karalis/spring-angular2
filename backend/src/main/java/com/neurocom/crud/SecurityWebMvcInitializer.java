@@ -10,6 +10,6 @@ public class SecurityWebMvcInitializer extends
         AbstractSecurityWebApplicationInitializer {
 
     public SecurityWebMvcInitializer() {
-        super(WebSecurityConfig.class);
+        super(WebSecurityConfig.class, SecurityWebApplicationInitializer.class);
     }
 }

@@ -1,0 +1,5 @@
+{
+  "compilerOptions": {
+    "outDir": "build1/webapp/app"
+  }
+}

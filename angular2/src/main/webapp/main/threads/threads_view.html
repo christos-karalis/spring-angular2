@@ -1,10 +1,11 @@
 <div *ngIf="data && data.posts">
     <h2>{{data?.title}}</h2>
-    <div class="post" *ngFor="let post of data?.posts">
+    <div class="post" *ngFor="let post of data?.posts;let first = first">
         <div class="wrap-ut pull-left">
             <div class="userinfo pull-left">
-                <div class="avatar">
-                    <img src="images/butters.png" alt="">
+                <div [ngSwitch]="post._embedded.user.username" class="avatar">
+                    <img *ngSwitchCase="'anonymous'" src="images/anonymous.png" [title]="post._embedded.user.firstName">
+                    <img *ngSwitchDefault src="images/butters.png" [title]="post._embedded.user.firstName+' '+post._embedded.user.lastName">
                     <div class="status green">&nbsp;</div>
                 </div>
 
@@ -13,7 +14,7 @@
                 <!--</div>-->
             </div>
             <div class="posttext pull-left">
-                <h2>
+                <h2 *ngIf="first">
                     <link-to [path]="'posts'" [label]="data?.title" [id]="post.id"></link-to>
                 </h2>
                 <p>{{post.body}}</p>
@@ -24,17 +25,17 @@
     </div>
 </div>
 <div class="post">
-    <form  [ngFormModel]="myForm" novalidate
-          (ngSubmit)="onSubmit(myForm.value)"
+    <form novalidate
+          (ngSubmit)="onSubmit(postForm.value)"
+          [formGroup]="postForm"
           class="ui form" >
         <div class="topwrap">
             <div class="userinfo pull-left">
             </div>
             <div class="posttext pull-left">
-                <div class="textwraper" [class.error]="!sku.valid && sku.touched">
+                <div class="textwraper" [class.error]="!postForm.controls['message'].valid&&postForm.controls['message'].dirty">
                     <div class="postreply">Post a Reply</div>
-                    <textarea type="text" id="skuInput"
-                             [ngFormControl]="sku" placeholder="Type your message here"></textarea>
+                    <textarea formControlName="message" type="text" id="message" placeholder="Type your message here"></textarea>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -46,7 +47,7 @@
             </div>
 
             <div class="pull-right postreply">
-                <div class="pull-left"><button type="submit" [ngClass]="{disabled : !myForm.valid}" class="btn btn-primary">Post Reply</button></div>
+                <div class="pull-left"><button type="submit" [ngClass]="{disabled : !postForm.valid}" class="btn btn-primary">Post Reply</button></div>
                 <div class="clearfix"></div>
             </div>
 

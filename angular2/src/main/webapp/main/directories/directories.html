@@ -1,10 +1,9 @@
 <h2>Available Directories</h2>
 <div class="post" *ngFor="let directory of directories">
-    <login></login>
-    <div class="wrap-ut pull-left">
-        <div class="userinfo pull-left">
+    <div class="col-lg-10 pull-left">
+        <div class="userinfo col-lg-2 pull-left">
         </div>
-        <div class="posttext pull-left">
+        <div class="posttext col-lg-10 pull-left">
             <h2>
                 <link-to [path]="'directories'" [label]="directory.title" [id]="directory.id"></link-to>
             </h2>
@@ -12,7 +11,7 @@
         </div>
         <div class="clearfix"></div>
     </div>
-    <div class="postinfo pull-left">
+    <div class="col-lg-2 pull-left">
         <div class="comments">
             <div class="commentbg">
                 {{directory.countOfTopics}}
@@ -20,8 +19,6 @@
             </div>
 
         </div>
-        <!--<div class="views"><i class="fa fa-eye"></i> 1,568</div>-->
-        <!--<div class="time"><i class="fa fa-clock-o"></i> 24 min</div>-->
     </div>
     <div class="clearfix"></div>
 </div>

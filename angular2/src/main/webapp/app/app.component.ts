@@ -1,43 +1,46 @@
+import {OnInit} from '@angular/core';
+import {Params} from '@angular/router';
+import {Response} from '@angular/http';
+
 import {Observable} from 'rxjs/Rx';
-import {Directive, OnInit} from 'angular2/core';
-import {RestService} from './services';
-import {RouteParams} from 'angular2/router';
+
+import {RestService, UserService} from './services';
 
 export class AppComponent implements OnInit {
  [key: string]: any;
 
   constructor(private rService : RestService,
+              protected userService : UserService,
               private serviceName : string) {}
 
   ngOnInit() {
-    this.rService.getService(this.serviceName)
-        .then(res => {this[this.serviceName] = res.json()._embedded[this.serviceName];},
+    this.rService.observeService(this.serviceName)
+        .subscribe(res => {this[this.serviceName] = res.json()._embedded[this.serviceName];},
                   error => console.log('Error loading : ' + error));
   }
 }
 
 export class AppDetailComponent implements OnInit {
-  protected promise : Promise<any>;
-  protected data : any;
+  protected data : { [key:string]:any } = {};
 
-  constructor(protected _routeParams: RouteParams,
+  constructor(protected _routeParams: Observable<Params>,
               protected rService : RestService,
+              protected userService : UserService,
               protected serviceName : string) {}
 
   ngOnInit() {
-    this.promise = this.rService.getService(this.serviceName, '/'+this._routeParams.get('id'))
-            .then(res => this.data = res.json(),
+    this._routeParams.switchMap((params: Params) => this.rService.observeService(this.serviceName, '/'+params['id']))
+            .subscribe((res:Response) => { for (let key in res.json()) { this.data[key] = res.json()[key] } },
                   error => console.log('Error loading : ' + error)
                  );
   }
 
   loadSubViews(views : string[]) {
-    let promises : Array<Promise<any>> = []
+    var self : AppDetailComponent = this;
     for (let view of views) {
-      promises.push(this.rService
-                          .getService(this.serviceName, '/'+this._routeParams.get('id')+'/'+view)
-                          .then(_=>_.json()._embedded[view]))
+      this._routeParams.switchMap((params: Params) => self.rService
+                          .observeService(self.serviceName, '/'+params['id']+'/'+view))
+                          .subscribe((_:Response)=> self.data[view] = _.json()._embedded[view]);
     }
-    return promises;
   }
 }
