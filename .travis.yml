@@ -5,3 +5,4 @@ jdk:
 before_install:
   - npm install -g typescript
   - chmod +x gradlew
+  - npm cache clean
