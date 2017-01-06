@@ -4,3 +4,4 @@ jdk:
 
 before_install:
   - npm install -g typescript
+  - chmod +x gradlew
